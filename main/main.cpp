@@ -12,6 +12,7 @@
 // it can be copied (from).
 
 #include <Arduino.h>
+#include <HelloWorld.ino>    // For initial test.
 //#include <ClockPin.ino>
 //#include <crt_TestWeightScale_hx711.h>
 //#include <TenTasks.ino>
@@ -26,8 +27,8 @@
 //#include <Free_Font_Demo.ino>
 //#include <TouchscreenButton.ino>
 //#include <TouchscreenButtonGroup.ino>
-#include <TouchscreenKeyboardLowerCase.ino>
-//#include <Queue2.ino>
+//#include <TouchscreenKeyboardLowerCase.ino>  // Not finalised yet.
+//#include <Queue2.ino>                        // Not sure if this is already finalised.
 
 //------------------------------------
 // Above, you can copy or include the contents of .ino examples from the arduino IDE.
