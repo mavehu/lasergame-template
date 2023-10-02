@@ -59,6 +59,7 @@ To be able to use libraries that were built for arduino ide in the ESP-IDF proje
 
 - Type (in my case its COM4)
   idf.py -p COM4 flash monitor
+  **but before** pressing enter, hold the boot button of the ESP32 till flashing starts (otherwise, an error might be thrown).
 
 - After flashing, you should see "HelloWorld: Hello World!" repeatedly.
 
@@ -79,4 +80,15 @@ To be able to use libraries that were built for arduino ide in the ESP-IDF proje
   idf.py set-target ESP32s2
   idf.py set-target ESP32s3
 
-- 
+## Other important pitfalls on ESP32 to be aware of
+- When using the ESP32s2 or EPS32s3 as an usb device (joystick, mouse, keyboard), first uncomment next line in main/idf_component.yml:
+ #espressif/esp_tinyusb: "~1.0.0"
+- Find (online) the **pinout diagram** of the specific ESP32 devkit that you ar using. 
+- Note a "pin number" on the diagram is not the same as "gpio pin number" and "devkit pin number". It stands for the pin of of the microcontroller chip on the board.
+- Note that part of the gpio-pins (gpio 34 up till 39) can be used as input pin only.
+- A large part of the pins cannot be used safely at all, because they are already used by background processes on the esp32.
+  - Don't use during boot: pin 0,2,5,12,14,15 (must be NC during boot).
+  - Don't use 1, 9, 10, 11, 16 and 17.
+  - Pin1 (tx0) is already used for debug output.
+  - Pin3 (rx0) could be used as input pin.
+  
