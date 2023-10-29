@@ -45,7 +45,7 @@ To be able to use libraries that were built for arduino ide in the ESP-IDF proje
 
 - cd components
 
-Then git clone the arduino-esp32 branch associated vwith ESP-IDF 4.4.
+Then git clone the arduino-esp32 branch associated with ESP-IDF 4.4.
 Today, that's:
 - git clone -b idf-release/v4.4 https://github.com/espressif/arduino-esp32.git
 
