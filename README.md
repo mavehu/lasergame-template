@@ -45,7 +45,9 @@ To be able to use libraries that were built for arduino ide in the ESP-IDF proje
 
 - cd components
 
-- git clone https://github.com/espressif/arduino-esp32.git
+Then git clone the arduino-esp32 branch associated vwith ESP-IDF 4.4.
+Today, that's:
+- git clone -b idf-release/v4.4 https://github.com/espressif/arduino-esp32.git
 
 ## Test
 
@@ -79,6 +81,9 @@ To be able to use libraries that were built for arduino ide in the ESP-IDF proje
 - For changing build target for different ESP32 types:
   idf.py set-target ESP32s2
   idf.py set-target ESP32s3
+
+Note that when ESP32s2 or ESP32s3 is used, you could use them as "mouse/joystick/rudder-devices",
+but in that case, you'd need ESP-IDF version 5.x (and the corresponding branch of the arduino-esp32 component).
 
 ## Other important pitfalls on ESP32 to be aware of
 - When using the ESP32s2 or EPS32s3 as an usb device (joystick, mouse, keyboard), first uncomment next line in main/idf_component.yml:
