@@ -144,22 +144,42 @@ namespace crt
 			                                      // display independent.
 			PageRoot<10> page1("root", display);
 
-			asyncDisplay.addTouchListener(&tsButtonA);
-			asyncDisplay.addTouchListener(&tsButtonB);
-			asyncDisplay.addTouchListener(&tsButtonC);
-			asyncDisplay.addTouchListener(&tsButtonD);
+			// prev:
+			// asyncDisplay.addTouchListener(&tsButtonA);
+			// asyncDisplay.addTouchListener(&tsButtonB);
+			// asyncDisplay.addTouchListener(&tsButtonC);
+			// asyncDisplay.addTouchListener(&tsButtonD);
+			// tsButtonA.addButtonListener(this);
+			// tsButtonB.addButtonListener(this);
+			// tsButtonC.addButtonListener(this);
+			// tsButtonD.addButtonListener(this);
+			// page1.addChildWidget(tsButtonA);
+			// page1.addChildWidget(tsButtonB);
+			// page1.addChildWidget(tsButtonGroup);
+			// ESP_LOGI("temptest", "sizeX of pageroot:%d", page1.getSizePix().x);
+			// tsButtonGroup.addChildWidget(tsButtonC);
+			// ESP_LOGI("temptest", "sizeX of tsButtonC:%d", tsButtonC.getSizePix().x);
+
 			tsButtonA.addButtonListener(this);
 			tsButtonB.addButtonListener(this);
 			tsButtonC.addButtonListener(this);
 			tsButtonD.addButtonListener(this);
+
 			page1.addChildWidget(tsButtonA);
 			page1.addChildWidget(tsButtonB);
 			page1.addChildWidget(tsButtonGroup);
+
+			// A en B zitten in niet een buttongroup. C en D wel.
+			asyncDisplay.addTouchListener(&tsButtonA);
+			asyncDisplay.addTouchListener(&tsButtonB);
+			asyncDisplay.addTouchListener(&tsButtonGroup);
+
 			ESP_LOGI("temptest", "sizeX of pageroot:%d", page1.getSizePix().x);
-			tsButtonGroup.addChildWidget(tsButtonC);
+			tsButtonGroup.addTouchListener(tsButtonC,tsButtonC);	// Dit voegt impliciet ook de widget to.
 			ESP_LOGI("temptest", "sizeX of tsButtonC:%d", tsButtonC.getSizePix().x);
 
-			tsButtonGroup.addChildWidget(tsButtonD);
+			tsButtonGroup.addTouchListener(tsButtonD,tsButtonD); // Dit voegt impliciet ook de widget to.
+
 			page1.show(true);
 			ESP_LOGI("temptest", "sizeX 2 of tsButtonA:%d", tsButtonA.getSizePix().x);
 			ESP_LOGI("temptest", "sizeX 2 of tsButtonC:%d", tsButtonC.getSizePix().x);
