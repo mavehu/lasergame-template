@@ -47,6 +47,7 @@ To be able to use libraries that were built for arduino ide in the ESP-IDF proje
 
 Then git clone the arduino-esp32 branch associated with ESP-IDF 4.4.
 Today, that's:
+
 - git clone -b idf-release/v4.4 https://github.com/espressif/arduino-esp32.git
 
 ## Test
@@ -86,8 +87,9 @@ Note that when ESP32s2 or ESP32s3 is used, you could use them as "mouse/joystick
 but in that case, you'd need ESP-IDF version 5.x (and the corresponding branch of the arduino-esp32 component).
 
 ## Other important pitfalls on ESP32 to be aware of
+
 - When using the ESP32s2 or EPS32s3 as an usb device (joystick, mouse, keyboard), first uncomment next line in main/idf_component.yml:
- #espressif/esp_tinyusb: "~1.0.0"
+  #espressif/esp_tinyusb: "~1.0.0"
 - Find (online) the **pinout diagram** of the specific ESP32 devkit that you ar using. 
 - Note a "pin number" on the diagram is not the same as "gpio pin number" and "devkit pin number". It stands for the pin of of the microcontroller chip on the board.
 - Note that part of the gpio-pins (gpio 34 up till 39) can be used as input pin only.
@@ -96,4 +98,22 @@ but in that case, you'd need ESP-IDF version 5.x (and the corresponding branch o
   - Don't use 1, 9, 10, 11, 16 and 17.
   - Pin1 (tx0) is already used for debug output.
   - Pin3 (rx0) could be used as input pin.
-  
+- At this moment (oktober 2023), Wifi examples of the arduino-esp32 component yield an error during execution. The solution is: add next initialization code:
+
+```cpp
+// In main.cpp:
+
+#include "nvs_flash.h" // nodig voor WIFI functionaliteit
+
+void app_main(void)
+{
+    // Initialisatie van NVS
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());  // Wis de NVS-partitie en probeer opnieuw
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    //.. etc - rest van app_main
+```
