@@ -79,19 +79,19 @@ namespace crt
 			//bool buttonRead = digitalRead(pinButton);
 			bool buttonRead = (gpio_get_level((gpio_num_t)pinButton) != 0);
 
-			bool bPressed = (buttonRead == bPositiveLogic);
+			bool bPressed = (buttonRead == bPositiveLogic); // TODO: don't use digitalRead but use ESP specific code instead (to allow build with ESP_IDF without Arduino IDE).
 			if (bPressed && !bPrevPressed)
 			{
 				for (int i = 0; i < nofButtonListeners; i++)
 				{
-					arButtonListeners[i]->bnPressed(this);
+					arButtonListeners[i]->buttonPressed(this);
 				}
 			}
 			else if (!bPressed && bPrevPressed)
 			{
 				for (int i = 0; i < nofButtonListeners; i++)
 				{
-					arButtonListeners[i]->bnReleased(this);
+					arButtonListeners[i]->buttonReleased(this);
 				}
 			}
 			bPrevPressed = bPressed;
